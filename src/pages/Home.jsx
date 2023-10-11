@@ -91,11 +91,11 @@ export default function Home() {
         <div className="container">
             <h1 className="titulo">Lista de Personagens</h1>
 
-            <div>
+            <div className="container-inputs">
                 <div>
                     <input type="text" name="pesquisa" id="pesquisa" placeholder="Nome do Personagem" value={txtPesquisa} onChange={(e) => setTxtPesquisa(e.target.value)} />
 
-                    <input type="button" value="Pesquisar" onClick={buscarPersonagemPesquisado} />
+                    <input type="button" value="Pesquisar" onClick={buscarPersonagemPesquisado} className="btn-pesquisar" />
                 </div>
 
                 <select name="statusDoPersonagem" id="statusDoPersonagem" onChange={selecaoStatus}>
@@ -114,7 +114,7 @@ export default function Home() {
                             personagens.map((personagem, i) => {
                                 return (
                                     <li key={i}>
-                                        <Link className="personagem">
+                                        <Link className="personagem" to={`/personagem/${personagem.id}/${personagem.name}`}>
                                             <img src={personagem.image} className="foto" />
 
                                             <p className="nome">{personagem.name}</p>

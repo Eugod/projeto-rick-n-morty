@@ -2,12 +2,23 @@
     width: 100%;
     height: 100vh;
     margin: 0;
-    padding: 0;
+    border: 1px solid #c0b9b9;
 }
 
 .titulo {
     text-align: center;
     font-size: 4em;
+}
+
+.container-inputs {
+    display: flex;
+    justify-content: center;
+}
+
+.btn-pesquisar {
+    margin-left: 1em;
+    margin-right: 3em;
+    cursor: pointer;
 }
 
 .lista-de-personagens {

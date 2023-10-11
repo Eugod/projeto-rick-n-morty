@@ -3,10 +3,11 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from "axios";
+import "./personagem.css";
 
-const API = "https://rickandmortyapi.com/api/character/"; // id do personagem
+const API = "https://rickandmortyapi.com/api/character/";
 
 export default function Personagem() {
     const { id, nomePersonagem } = useParams();
@@ -32,14 +33,14 @@ export default function Personagem() {
         let dados = [];
 
         if (linkEpisodios.length > 0) {
-            linkEpisodios.forEach(async (episodio) => {
-                await axios.get(episodio)
-                    .then(({ data }) => {
-                        dados.push(data);
-                    }), err => {
-                        console.error("Episódios não encontrados", err);
-                    }
-            });
+            for (const episodio of linkEpisodios) {
+                try {
+                    const { data } = await axios.get(episodio);
+                    dados.push(data);
+                } catch (err) {
+                    console.error("Episódios não encontrados", err);
+                }
+            }
 
             setEpisodios(dados);
         }
@@ -47,45 +48,50 @@ export default function Personagem() {
 
     useEffect(() => {
         buscarEpisodios();
-        console.log(episodios);
     }, [linkEpisodios]);
 
     return (
-        <div>
-            <h1>{nomePersonagem}</h1>
+        <div className="container-personagem">
+            <h1>Detalhes do Personagem</h1>
 
-            {
-                personagem && (
-                    <div>
-                        <img src={personagem.image} />
-
-                        <p>Status: {personagem.status}</p>
-
-                        <p>Espécie: {personagem.species}</p>
-                    </div>
-                )
-            }
-
-            <div>
-                <h2>Episódios</h2>
-
+            <div className="container-info-personagem">
                 {
-                    episodios && (
-                        <ul>
-                            {
-                                episodios.map((episodio, i) => {
-                                    return (
-                                        <li key={i}>
-                                            <p>Título: {episodio.name}</p>
+                    personagem && (
+                        <div>
+                            <img src={personagem.image} className="foto-personagem" />
 
-                                            <p>Temporada: {episodio.episode}</p>
-                                        </li>
-                                    )
-                                })
-                            }
-                        </ul>
+                            <p className="info-personagem">Nome: {nomePersonagem}</p>
+
+                            <p className="info-personagem">Status: {personagem.status}</p>
+
+                            <p className="info-personagem">Espécie: {personagem.species}</p>
+
+                            <Link to={"/"} className="btn-voltar">Voltar</Link>
+                        </div>
                     )
                 }
+
+                <div>
+                    <h2 className="titulo-secundario">Episódios</h2>
+
+                    {
+                        episodios && (
+                            <ul className="lista-episodios">
+                                {
+                                    episodios.map((episodio, i) => {
+                                        return (
+                                            <li key={i} className="episodio">
+                                                <p className="temporada">Temporada: {episodio.episode}</p>
+
+                                                <p className="titulo-episodio">Título: {episodio.name}</p>
+                                            </li>
+                                        )
+                                    })
+                                }
+                            </ul>
+                        )
+                    }
+                </div>
             </div>
         </div>
     )
