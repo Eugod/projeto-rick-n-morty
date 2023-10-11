@@ -1,0 +1,41 @@
+.container {
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.titulo {
+    text-align: center;
+    font-size: 4em;
+}
+
+.lista-de-personagens {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.personagem {
+    display: flex;
+    align-items: center;
+    border: 1px solid #c0b9b9;
+    margin: 1em 0;
+    width: 24em;
+    padding: 0.5em;
+    text-decoration: none;
+}
+
+.foto {
+    border-radius: 50%;
+    width: 12em;
+    margin-right: 1em;
+}
+
+.nome {
+    color: #000000;
+    font-size: 1.5em;
+}
